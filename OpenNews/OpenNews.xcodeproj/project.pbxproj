@@ -21,6 +21,7 @@
 		535483C928F29788009B062D /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 535483C828F29788009B062D /* RxRelay */; };
 		535483CB28F29788009B062D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 535483CA28F29788009B062D /* RxSwift */; };
 		535483CD28F29788009B062D /* RxTest in Frameworks */ = {isa = PBXBuildFile; productRef = 535483CC28F29788009B062D /* RxTest */; };
+		535483D028F298FC009B062D /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 535483CF28F298FC009B062D /* ReactorKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 				535483C928F29788009B062D /* RxRelay in Frameworks */,
 				535483C728F29788009B062D /* RxCocoa in Frameworks */,
 				535483CB28F29788009B062D /* RxSwift in Frameworks */,
+				535483D028F298FC009B062D /* ReactorKit in Frameworks */,
 				535483C528F29788009B062D /* RxBlocking in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -159,6 +161,7 @@
 				535483C828F29788009B062D /* RxRelay */,
 				535483CA28F29788009B062D /* RxSwift */,
 				535483CC28F29788009B062D /* RxTest */,
+				535483CF28F298FC009B062D /* ReactorKit */,
 			);
 			productName = OpenNews;
 			productReference = 5354839028F295F5009B062D /* OpenNews.app */;
@@ -234,6 +237,7 @@
 			mainGroup = 5354838728F295F5009B062D;
 			packageReferences = (
 				535483C328F29788009B062D /* XCRemoteSwiftPackageReference "RxSwift" */,
+				535483CE28F298FC009B062D /* XCRemoteSwiftPackageReference "ReactorKit" */,
 			);
 			productRefGroup = 5354839128F295F5009B062D /* Products */;
 			projectDirPath = "";
@@ -626,6 +630,14 @@
 				minimumVersion = 6.0.0;
 			};
 		};
+		535483CE28F298FC009B062D /* XCRemoteSwiftPackageReference "ReactorKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactorKit/ReactorKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -653,6 +665,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 535483C328F29788009B062D /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxTest;
+		};
+		535483CF28F298FC009B062D /* ReactorKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 535483CE28F298FC009B062D /* XCRemoteSwiftPackageReference "ReactorKit" */;
+			productName = ReactorKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
