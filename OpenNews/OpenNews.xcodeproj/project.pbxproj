@@ -23,6 +23,7 @@
 		53F7D48528F3F58E00104F86 /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 53F7D48428F3F58E00104F86 /* Differentiator */; };
 		53F7D48728F3F58E00104F86 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 53F7D48628F3F58E00104F86 /* RxDataSources */; };
 		53F7D48928F3F75D00104F86 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7D48828F3F75D00104F86 /* API.swift */; };
+		53F7D49128F404A900104F86 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 53F7D49028F404A900104F86 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 				53F7D48528F3F58E00104F86 /* Differentiator in Frameworks */,
 				535483C928F29788009B062D /* RxRelay in Frameworks */,
 				535483C728F29788009B062D /* RxCocoa in Frameworks */,
+				53F7D49128F404A900104F86 /* SnapKit in Frameworks */,
 				535483CB28F29788009B062D /* RxSwift in Frameworks */,
 				53F7D48728F3F58E00104F86 /* RxDataSources in Frameworks */,
 				535483D028F298FC009B062D /* ReactorKit in Frameworks */,
@@ -173,6 +175,7 @@
 				535483CF28F298FC009B062D /* ReactorKit */,
 				53F7D48428F3F58E00104F86 /* Differentiator */,
 				53F7D48628F3F58E00104F86 /* RxDataSources */,
+				53F7D49028F404A900104F86 /* SnapKit */,
 			);
 			productName = OpenNews;
 			productReference = 5354839028F295F5009B062D /* OpenNews.app */;
@@ -250,6 +253,7 @@
 				535483C328F29788009B062D /* XCRemoteSwiftPackageReference "RxSwift" */,
 				535483CE28F298FC009B062D /* XCRemoteSwiftPackageReference "ReactorKit" */,
 				53F7D48328F3F58E00104F86 /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				53F7D48F28F404A900104F86 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 5354839128F295F5009B062D /* Products */;
 			projectDirPath = "";
@@ -659,6 +663,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		53F7D48F28F404A900104F86 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -691,6 +703,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 53F7D48328F3F58E00104F86 /* XCRemoteSwiftPackageReference "RxDataSources" */;
 			productName = RxDataSources;
+		};
+		53F7D49028F404A900104F86 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 53F7D48F28F404A900104F86 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
