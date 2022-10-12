@@ -1,6 +1,6 @@
 # OpenNews
 
-[Apple news API](https://developer.apple.com/documentation/apple_news) 를 활용한 학습
+[Mock API](https://mockapi.io) 를 활용한 뉴스 앱 제작
 
 # Architecture
 
