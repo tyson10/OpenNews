@@ -18,24 +18,6 @@ final class ArticleListVC: UIViewController {
         self.reactor = Self.Reactor()
         self.reactor?.action.onNext(.loadArticles)
     }
-    
-    @IBAction func btnTapped(_ sender: Any) {
-        if let url = URL(string: "https://6343b75cb9ab4243cad5ec9e.mockapi.io/articles"){
-            var request = URLRequest.init(url: url)
-            request.httpMethod = "GET"
-            URLSession.shared.dataTask(with: request){ (data, response, error) in
-                guard let data = data else {return}
-                print("data  \(data)")
-                do {
-                    let articles = try JSONDecoder().decode([Article].self, from: data)
-                    print(articles)
-                } catch {
-                    print(error)
-                }
-                
-            }.resume()
-        }
-    }
 }
 
 extension ArticleListVC: ReactorKit.View {
