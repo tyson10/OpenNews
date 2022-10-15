@@ -7,13 +7,16 @@
 
 import UIKit
 
-class ArticleListVC: UIViewController {
+import RxSwift
+import ReactorKit
 
-    @IBOutlet weak var btn: UIButton!
+final class ArticleListVC: UIViewController {
+    var disposeBag: DisposeBag = .init()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
+    override func loadView() {
+        super.loadView()
+        self.reactor = Self.Reactor()
+        self.reactor?.action.onNext(.loadArticles)
     }
     
     @IBAction func btnTapped(_ sender: Any) {
@@ -35,3 +38,20 @@ class ArticleListVC: UIViewController {
     }
 }
 
+extension ArticleListVC: ReactorKit.View {
+    func bind(reactor: Reactor) {
+        
+    }
+}
+
+extension ArticleListVC {
+    final internal class Reactor: ReactorKit.Reactor {
+        var initialState: State = .init()
+        enum Action {
+            case loadArticles
+        }
+        struct State {
+            @Pulse var articles: [Article]?
+        }
+    }
+}
