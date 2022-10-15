@@ -20,6 +20,7 @@
 		535483CB28F29788009B062D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 535483CA28F29788009B062D /* RxSwift */; };
 		535483D028F298FC009B062D /* ReactorKit in Frameworks */ = {isa = PBXBuildFile; productRef = 535483CF28F298FC009B062D /* ReactorKit */; };
 		53BC4B7D28FA65D8006BAB2C /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 53BC4B7C28FA65D8006BAB2C /* RxAlamofire */; };
+		53BC4B7F28FA66B2006BAB2C /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC4B7E28FA66B2006BAB2C /* API.swift */; };
 		53F7D48528F3F58E00104F86 /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 53F7D48428F3F58E00104F86 /* Differentiator */; };
 		53F7D48728F3F58E00104F86 /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 53F7D48628F3F58E00104F86 /* RxDataSources */; };
 		53F7D48928F3F75D00104F86 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7D48828F3F75D00104F86 /* Article.swift */; };
@@ -56,6 +57,7 @@
 		535483B028F295F7009B062D /* OpenNewsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpenNewsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		535483B428F295F7009B062D /* OpenNewsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenNewsUITests.swift; sourceTree = "<group>"; };
 		535483B628F295F7009B062D /* OpenNewsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenNewsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		53BC4B7E28FA66B2006BAB2C /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		53F7D48828F3F75D00104F86 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +125,7 @@
 				5354839E28F295F7009B062D /* LaunchScreen.storyboard */,
 				535483A128F295F7009B062D /* Info.plist */,
 				53F7D48828F3F75D00104F86 /* Article.swift */,
+				53BC4B7E28FA66B2006BAB2C /* API.swift */,
 			);
 			path = OpenNews;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				5354839428F295F5009B062D /* AppDelegate.swift in Sources */,
 				53F7D48928F3F75D00104F86 /* Article.swift in Sources */,
 				5354839628F295F5009B062D /* SceneDelegate.swift in Sources */,
+				53BC4B7F28FA66B2006BAB2C /* API.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
