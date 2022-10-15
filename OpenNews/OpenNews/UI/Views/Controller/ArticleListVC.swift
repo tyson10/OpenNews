@@ -11,22 +11,17 @@ import RxSwift
 import ReactorKit
 import RxDataSources
 
-final class ArticleListVC: UIViewController {
-    var disposeBag: DisposeBag = .init()
+final class ArticleListVC: ReactorBaseController<ArticleListVC.Reactor> {
+    
     private var dataSourece = RxTableViewSectionedReloadDataSource<SectionModel> { dataSource, tableView, indexPath, item in
         return .init()
     }
     
-    override func loadView() {
-        super.loadView()
-        self.reactor = Self.Reactor()
-        self.reactor?.action.onNext(.loadArticles)
-    }
-}
-
-extension ArticleListVC: ReactorKit.View {
-    func bind(reactor: Reactor) {
-        
+    override func bind(reactor: Reactor) {
+        Observable.just(Void())
+            .map { Reactor.Action.loadArticles }
+            .bind(to: reactor.action)
+            .disposed(by: self.disposeBag)
     }
 }
 
@@ -37,7 +32,6 @@ extension ArticleListVC {
             case loadArticles
         }
         struct State {
-            @Pulse var articles: [Article]?
             @Pulse var sectionDatas = [ArticleListVC.SectionModel]()
         }
     }
