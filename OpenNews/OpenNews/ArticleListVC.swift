@@ -9,9 +9,13 @@ import UIKit
 
 import RxSwift
 import ReactorKit
+import RxDataSources
 
 final class ArticleListVC: UIViewController {
     var disposeBag: DisposeBag = .init()
+    private var dataSourece = RxTableViewSectionedReloadDataSource<SectionModel> { dataSource, tableView, indexPath, item in
+        return .init()
+    }
     
     override func loadView() {
         super.loadView()
@@ -27,13 +31,34 @@ extension ArticleListVC: ReactorKit.View {
 }
 
 extension ArticleListVC {
-    final internal class Reactor: ReactorKit.Reactor {
+    final class Reactor: ReactorKit.Reactor {
         var initialState: State = .init()
         enum Action {
             case loadArticles
         }
         struct State {
             @Pulse var articles: [Article]?
+            @Pulse var sectionDatas = [ArticleListVC.SectionModel]()
         }
+    }
+}
+
+extension ArticleListVC {
+    enum SectionModel: SectionModelType {
+        typealias Item = Article
+        
+        var items: [Article] {
+            switch self {
+            case .basic(let items): return items
+            }
+        }
+        
+        init(original: SectionModel, items: [Article]) {
+            switch original {
+            case .basic: self = .basic(items: items)
+            }
+        }
+        
+        case basic(items: [Article])
     }
 }
