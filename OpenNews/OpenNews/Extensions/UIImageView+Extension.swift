@@ -12,7 +12,7 @@ fileprivate final class ImageCacheManager {
 }
 
 extension UIImageView {
-    func setImageUrl(_ url: String) {
+    func setImage(with url: String) {
         let cacheKey = NSString(string: url)
         if let cachedImage = ImageCacheManager.shared.object(forKey: cacheKey) {
             self.image = cachedImage

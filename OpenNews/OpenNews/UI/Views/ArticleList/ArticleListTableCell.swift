@@ -10,11 +10,11 @@ import UIKit
 import SnapKit
 
 extension ArticleListVC {
-    final private class TableCell: RxBaseTableCell<SectionModel.Item> {
+    final class TableCell: RxBaseTableCell<SectionModel.Item> {
         private let articleImgView = UIImageView()
         private let titleLabel = UILabel()
         
-        override func addSubview(_ view: UIView) {
+        override func addSubviews() {
             self.contentView.addSubview(self.articleImgView)
             self.contentView.addSubview(self.titleLabel)
         }
@@ -39,7 +39,10 @@ extension ArticleListVC {
         }
         
         override func configure(with item: SectionModel.Item) {
-            
+            self.titleLabel.text = item.title
+            if let path = item.imagePath {
+                self.articleImgView.setImage(with: path)
+            }
         }
     }
 }

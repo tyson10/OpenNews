@@ -15,7 +15,9 @@ import SnapKit
 final class ArticleListVC: ReactorBaseController<ArticleListVC.Reactor> {
     private let tableView = UITableView()
     private var dataSourece = RxTableViewSectionedReloadDataSource<SectionModel> { dataSource, tableView, indexPath, item in
-        return .init()
+        let cell = tableView.dequeueReusableCell(withIdentifier: TableCell.reuseableIdentifier, for: indexPath) as! TableCell
+        cell.configure(with: dataSource[indexPath])
+        return cell
     }
     
     override func addSubviews() {
@@ -31,6 +33,7 @@ final class ArticleListVC: ReactorBaseController<ArticleListVC.Reactor> {
     
     override func setAttrs() {
         self.view.backgroundColor = .white
+        self.setTable()
     }
     
     override func bind(reactor: Reactor) {
@@ -42,6 +45,11 @@ final class ArticleListVC: ReactorBaseController<ArticleListVC.Reactor> {
         reactor.pulse(\.$sectionDatas).share()
             .bind(to: self.tableView.rx.items(dataSource: self.dataSourece))
             .disposed(by: self.disposeBag)
+    }
+    
+    private func setTable() {
+        self.tableView.rowHeight = 100
+        self.tableView.register(TableCell.self, forCellReuseIdentifier: TableCell.reuseableIdentifier)
     }
 }
 
