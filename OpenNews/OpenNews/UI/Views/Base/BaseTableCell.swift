@@ -9,7 +9,12 @@ import UIKit
 
 import RxSwift
 
-class RxBaseTableCell: UITableViewCell, CodeBaseType, RxBindable {
+protocol RxDatasourceCell: RxBindable {
+    associatedtype SectionItem
+    func configure(with item: SectionItem)
+}
+
+class RxBaseTableCell<SectionItem>: UITableViewCell, CodeBaseType, RxDatasourceCell {
     var disposeBag: DisposeBag = .init()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -28,4 +33,5 @@ class RxBaseTableCell: UITableViewCell, CodeBaseType, RxBindable {
     func clearBag() {
         self.disposeBag = .init()
     }
+    func configure(with item: SectionItem) { }
 }
