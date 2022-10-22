@@ -55,8 +55,6 @@ final class ArticleListVC: ReactorBaseController<ArticleListVC.Reactor> {
 
 extension ArticleListVC {
     final class Reactor: ReactorKit.Reactor {
-        typealias SectionModel = ArticleListVC.SectionModel
-        typealias SectionItem = SectionModel.Item
         
         var initialState: State = .init()
         
@@ -92,8 +90,7 @@ extension ArticleListVC {
         }
         
         private func makeSectionDatas(with articles: [Article]) -> [SectionModel] {
-            var items: [SectionItem] = articles
-            return [.basic(items: items)]
+            return [.basic(items: articles)]
         }
     }
 }
