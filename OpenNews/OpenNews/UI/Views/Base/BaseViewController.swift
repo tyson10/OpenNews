@@ -30,6 +30,10 @@ protocol RxBaseType {
     func clearBag()
 }
 
+protocol RxBindable: RxBaseType {
+    func bind()
+}
+
 class ReactorBaseController<T: ReactorKit.Reactor>: UIViewController, CodeBaseType, ReactorKit.View, RxBaseType {
     typealias Reactor = T
     var disposeBag: DisposeBag = .init()
