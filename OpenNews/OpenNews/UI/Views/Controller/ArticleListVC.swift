@@ -43,12 +43,45 @@ final class ArticleListVC: ReactorBaseController<ArticleListVC.Reactor> {
 
 extension ArticleListVC {
     final class Reactor: ReactorKit.Reactor {
+        typealias SectionModel = ArticleListVC.SectionModel
+        typealias SectionItem = SectionModel.Item
+        
         var initialState: State = .init()
+        
         enum Action {
             case loadArticles
         }
+        
+        enum Mutation {
+            case setSectionDatas([SectionModel])
+        }
+        
         struct State {
-            @Pulse var sectionDatas = [ArticleListVC.SectionModel]()
+            @Pulse var sectionDatas = [SectionModel]()
+        }
+        
+        func mutate(action: Action) -> Observable<Mutation> {
+            switch action {
+            case .loadArticles:
+                let sectionDatas = API.fetchAllArticles().map(self.makeSectionDatas(with:))
+                return sectionDatas.map(Mutation.setSectionDatas)
+            }
+        }
+        
+        func reduce(state: State, mutation: Mutation) -> State {
+            var new = state
+            
+            switch mutation {
+            case .setSectionDatas(let sectionDatas):
+                new.sectionDatas = sectionDatas
+            }
+            
+            return new
+        }
+        
+        private func makeSectionDatas(with articles: [Article]) -> [SectionModel] {
+            var items: [SectionItem] = articles
+            return [.basic(items: items)]
         }
     }
 }
