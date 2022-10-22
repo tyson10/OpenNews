@@ -38,6 +38,10 @@ final class ArticleListVC: ReactorBaseController<ArticleListVC.Reactor> {
             .map { Reactor.Action.loadArticles }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
+        
+        reactor.pulse(\.$sectionDatas).share()
+            .bind(to: self.tableView.rx.items(dataSource: self.dataSourece))
+            .disposed(by: self.disposeBag)
     }
 }
 
