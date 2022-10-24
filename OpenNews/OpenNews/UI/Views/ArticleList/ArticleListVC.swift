@@ -45,6 +45,11 @@ final class ArticleListVC: ReactorBaseController<ArticleListVC.Reactor> {
         reactor.pulse(\.$sectionDatas).share()
             .bind(to: self.tableView.rx.items(dataSource: self.dataSourece))
             .disposed(by: self.disposeBag)
+        
+        self.tableView.rx.modelSelected(SectionModel.Item.self)
+            .map(Reactor.Action.modelSelected)
+            .bind(to: reactor.action)
+            .disposed(by: self.disposeBag)
     }
     
     private func setTable() {
@@ -60,6 +65,7 @@ extension ArticleListVC {
         
         enum Action {
             case loadArticles
+            case modelSelected(SectionModel.Item)
         }
         
         enum Mutation {
@@ -75,6 +81,8 @@ extension ArticleListVC {
             case .loadArticles:
                 let sectionDatas = API.fetchAllArticles().map(self.makeSectionDatas(with:))
                 return sectionDatas.map(Mutation.setSectionDatas)
+            case .modelSelected(let article):
+                return .empty()
             }
         }
         
