@@ -17,25 +17,40 @@ extension ArticleListVC {
         
         enum Action {
             case loadArticles
+            case reload
             case modelSelected(SectionModel.Item)
         }
         
         enum Mutation {
             case setSectionDatas([SectionModel])
+            case setIsReloadingFlag(Bool)
         }
         
         struct State {
             @Pulse var sectionDatas = [SectionModel]()
+            @Pulse var isReloading = false
         }
         
         func mutate(action: Action) -> Observable<Mutation> {
+            var result: Observable<Mutation>
+            var mutations = [Observable<Mutation>]()
+            
             switch action {
             case .loadArticles:
                 let sectionDatas = API.fetchAllArticles().map(self.makeSectionDatas(with:))
-                return sectionDatas.map(Mutation.setSectionDatas)
+                result = sectionDatas.map(Mutation.setSectionDatas)
+                
+            case .reload:
+                mutations.append(.of(.setIsReloadingFlag(true)))
+                mutations.append(API.fetchAllArticles().map(self.makeSectionDatas(with:)).map(Mutation.setSectionDatas))
+                mutations.append(.of(.setIsReloadingFlag(true)))
+                result = .concat(mutations)
+                
             case .modelSelected(let article):
-                return .empty()
+                result = .empty()
             }
+            
+            return result
         }
         
         func reduce(state: State, mutation: Mutation) -> State {
@@ -44,6 +59,8 @@ extension ArticleListVC {
             switch mutation {
             case .setSectionDatas(let sectionDatas):
                 new.sectionDatas = sectionDatas
+            case .setIsReloadingFlag(let flag):
+                new.isReloading = flag
             }
             
             return new
