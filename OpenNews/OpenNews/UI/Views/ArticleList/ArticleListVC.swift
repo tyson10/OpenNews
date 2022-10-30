@@ -34,6 +34,7 @@ final class ArticleListVC: ReactorBaseController<ArticleListVC.Reactor> {
     override func setAttrs() {
         self.view.backgroundColor = .white
         self.setTable()
+        self.setRefreshControl()
     }
     
     override func bind(reactor: Reactor) {
@@ -42,8 +43,19 @@ final class ArticleListVC: ReactorBaseController<ArticleListVC.Reactor> {
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
         
+        self.reload.share()
+            .map { Reactor.Action.reload }
+            .bind(to: reactor.action)
+            .disposed(by: self.disposeBag)
+        
         reactor.pulse(\.$sectionDatas).share()
             .bind(to: self.tableView.rx.items(dataSource: self.dataSourece))
+            .disposed(by: self.disposeBag)
+        
+        reactor.pulse(\.$isReloadEnded).share()
+            .filter { $0 }
+            .map { _ in }
+            .bind(onNext: self.endRefreshing)
             .disposed(by: self.disposeBag)
         
         self.tableView.rx.modelSelected(SectionModel.Item.self)
@@ -55,6 +67,23 @@ final class ArticleListVC: ReactorBaseController<ArticleListVC.Reactor> {
     private func setTable() {
         self.tableView.rowHeight = 100
         self.tableView.register(TableCell.self, forCellReuseIdentifier: TableCell.reuseableIdentifier)
+    }
+}
+
+//MARK: - Refresh
+extension ArticleListVC {
+    private func setRefreshControl() {
+        self.tableView.refreshControl = UIRefreshControl()
+        self.tableView.refreshControl?
+            .addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
+    }
+    
+    @objc private func pullToRefresh() {
+        self.reload.accept(())
+    }
+    
+    private func endRefreshing() {
+        self.tableView.refreshControl?.endRefreshing()
     }
 }
 
