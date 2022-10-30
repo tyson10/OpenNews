@@ -23,12 +23,12 @@ extension ArticleListVC {
         
         enum Mutation {
             case setSectionDatas([SectionModel])
-            case setIsReloadingFlag(Bool)
+            case setIsReloadEnded(Bool)
         }
         
         struct State {
             @Pulse var sectionDatas = [SectionModel]()
-            @Pulse var isReloading = false
+            @Pulse var isReloadEnded = true
         }
         
         func mutate(action: Action) -> Observable<Mutation> {
@@ -41,9 +41,9 @@ extension ArticleListVC {
                 result = sectionDatas.map(Mutation.setSectionDatas)
                 
             case .reload:
-                mutations.append(.of(.setIsReloadingFlag(true)))
+                mutations.append(.of(.setIsReloadEnded(false)))
                 mutations.append(API.fetchAllArticles().map(self.makeSectionDatas(with:)).map(Mutation.setSectionDatas))
-                mutations.append(.of(.setIsReloadingFlag(true)))
+                mutations.append(.of(.setIsReloadEnded(true)))
                 result = .concat(mutations)
                 
             case .modelSelected(let article):
@@ -59,8 +59,8 @@ extension ArticleListVC {
             switch mutation {
             case .setSectionDatas(let sectionDatas):
                 new.sectionDatas = sectionDatas
-            case .setIsReloadingFlag(let flag):
-                new.isReloading = flag
+            case .setIsReloadEnded(let flag):
+                new.isReloadEnded = flag
             }
             
             return new
