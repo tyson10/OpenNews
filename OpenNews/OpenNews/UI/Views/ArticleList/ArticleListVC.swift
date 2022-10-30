@@ -34,6 +34,7 @@ final class ArticleListVC: ReactorBaseController<ArticleListVC.Reactor> {
     override func setAttrs() {
         self.view.backgroundColor = .white
         self.setTable()
+        self.setRefreshControl()
     }
     
     override func bind(reactor: Reactor) {
@@ -42,8 +43,24 @@ final class ArticleListVC: ReactorBaseController<ArticleListVC.Reactor> {
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
         
+        self.reload.share()
+            .map { Reactor.Action.reload }
+            .bind(to: reactor.action)
+            .disposed(by: self.disposeBag)
+        
         reactor.pulse(\.$sectionDatas).share()
             .bind(to: self.tableView.rx.items(dataSource: self.dataSourece))
+            .disposed(by: self.disposeBag)
+        
+        reactor.pulse(\.$isReloadEnded).share()
+            .filter { $0 }
+            .map { _ in }
+            .bind(onNext: self.endRefreshing)
+            .disposed(by: self.disposeBag)
+        
+        self.tableView.rx.modelSelected(SectionModel.Item.self)
+            .map(Reactor.Action.modelSelected)
+            .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
     }
     
@@ -53,48 +70,24 @@ final class ArticleListVC: ReactorBaseController<ArticleListVC.Reactor> {
     }
 }
 
+//MARK: - Refresh
 extension ArticleListVC {
-    final class Reactor: ReactorKit.Reactor {
-        
-        var initialState: State = .init()
-        
-        enum Action {
-            case loadArticles
-        }
-        
-        enum Mutation {
-            case setSectionDatas([SectionModel])
-        }
-        
-        struct State {
-            @Pulse var sectionDatas = [SectionModel]()
-        }
-        
-        func mutate(action: Action) -> Observable<Mutation> {
-            switch action {
-            case .loadArticles:
-                let sectionDatas = API.fetchAllArticles().map(self.makeSectionDatas(with:))
-                return sectionDatas.map(Mutation.setSectionDatas)
-            }
-        }
-        
-        func reduce(state: State, mutation: Mutation) -> State {
-            var new = state
-            
-            switch mutation {
-            case .setSectionDatas(let sectionDatas):
-                new.sectionDatas = sectionDatas
-            }
-            
-            return new
-        }
-        
-        private func makeSectionDatas(with articles: [Article]) -> [SectionModel] {
-            return [.basic(items: articles)]
-        }
+    private func setRefreshControl() {
+        self.tableView.refreshControl = UIRefreshControl()
+        self.tableView.refreshControl?
+            .addTarget(self, action: #selector(self.pullToRefresh), for: .valueChanged)
+    }
+    
+    @objc private func pullToRefresh() {
+        self.reload.accept(())
+    }
+    
+    private func endRefreshing() {
+        self.tableView.refreshControl?.endRefreshing()
     }
 }
 
+// MARK: - Section Model Type
 extension ArticleListVC {
     enum SectionModel: SectionModelType {
         typealias Item = Article

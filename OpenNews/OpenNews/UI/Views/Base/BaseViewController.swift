@@ -8,6 +8,7 @@
 import UIKit
 
 import RxSwift
+import RxRelay
 import ReactorKit
 
 protocol CodeBaseType {
@@ -36,6 +37,7 @@ protocol RxBindable: RxBaseType {
 
 class ReactorBaseController<T: ReactorKit.Reactor>: UIViewController, CodeBaseType, ReactorKit.View, RxBaseType {
     typealias Reactor = T
+    var reload = PublishRelay<Void>()
     var disposeBag: DisposeBag = .init()
     
     init(reactor: T? = nil) {

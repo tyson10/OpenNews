@@ -7,6 +7,7 @@
 - [RxSwift](https://github.com/ReactiveX/RxSwift) 를 기반으로 하며 [ReactorKit](https://github.com/ReactorKit/ReactorKit) 프레임워크를 사용합니다.
 - [SnapKit](https://github.com/SnapKit/SnapKit) 을 활용한 Auto Layout 으로 UI 를 구성합니다.
 - [RxAlamofire](https://github.com/RxSwiftCommunity/RxAlamofire) 를 사용해서 REST API 를 연동합니다.
+- [RxDataSources](https://github.com/RxSwiftCommunity/RxDataSources) 를 사용한 Table or Collection 뷰를 구현합니다.
 
 ## ReactorKit
 
